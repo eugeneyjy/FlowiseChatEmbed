@@ -5,6 +5,7 @@ type Props = {
     sendButtonColor?: string;
     defaultValue?: string;
     fontSize?: number;
+    loading?: boolean;
     onSubmit: (value: string) => void;
 };
 export declare const TextInput: (props: Props) => import("solid-js").JSX.Element;
