@@ -1,7 +1,7 @@
 import { ShortTextInput } from './ShortTextInput'
 import { SendButton } from '@/components/SendButton'
 import { isMobile } from '@/utils/isMobileSignal'
-import { createSignal, onMount } from 'solid-js'
+import { createSignal, onMount, createEffect } from 'solid-js'
 
 type Props = {
     placeholder?: string
@@ -10,6 +10,7 @@ type Props = {
     sendButtonColor?: string
     defaultValue?: string
     fontSize?: number
+    loading?: boolean
     onSubmit: (value: string) => void
 }
 
@@ -39,6 +40,12 @@ export const TextInput = (props: Props) => {
         if (!isMobile() && inputRef) inputRef.focus()
     })
 
+    createEffect(() => {
+        if (!props.loading) {
+            if (!isMobile() && inputRef) inputRef.focus()
+        }
+    })
+
     return (
         <div
             class={'flex items-end justify-between chatbot-input'}
@@ -62,6 +69,7 @@ export const TextInput = (props: Props) => {
                 value={inputValue()}
                 fontSize={props.fontSize}
                 placeholder={props.placeholder ?? 'Type your question'}
+                loading={props.loading}
             />
             <SendButton sendButtonColor={props.sendButtonColor} type='button' isDisabled={inputValue() === ''} class='my-2 ml-2' on:click={submit}>
                 <span style={{ 'font-family': 'Poppins, sans-serif' }}>Send</span>

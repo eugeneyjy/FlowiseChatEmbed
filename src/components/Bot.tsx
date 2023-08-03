@@ -336,6 +336,7 @@ export const Bot = (props: BotProps & { class?: string }) => {
                         fontSize={props.fontSize}
                         defaultValue={userInput()}
                         onSubmit={handleSubmit}
+                        loading={loading()}
                     />
                 </div>
                 <Badge badgeBackgroundColor={props.badgeBackgroundColor} poweredByTextColor={props.poweredByTextColor} botContainer={botContainer} />
