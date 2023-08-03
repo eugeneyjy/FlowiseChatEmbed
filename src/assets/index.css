@@ -407,3 +407,15 @@ input {
     padding: 10px 10px;
     font-family: 'Poppins', sans-serif;
 }
+
+@layer base {
+  ul, ol {
+    list-style: revert;
+    margin: revert;
+    padding: 0 0 0 16px;
+  }
+
+  p {
+    margin: revert;
+  }
+}
