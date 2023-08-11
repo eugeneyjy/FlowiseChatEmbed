@@ -6,6 +6,7 @@ export type IncomingInput = {
     history: MessageType[]
     overrideConfig?: Record<string, unknown>
     socketIOClientId?: string
+    metadataFilter?: string
 }
 
 export type MessageRequest = {
