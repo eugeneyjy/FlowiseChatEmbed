@@ -22,6 +22,7 @@ export type BotProps = {
     chatflowid: string
     apiHost?: string
     chatflowConfig?: Record<string, unknown>
+    filterRegex?: RegExp | [RegExp]
     welcomeMessage?: string
     botMessage?: BotMessageTheme
     userMessage?: UserMessageTheme
@@ -198,6 +199,28 @@ export const Bot = (props: BotProps & { class?: string }) => {
         if (props.chatflowConfig) body.overrideConfig = props.chatflowConfig
 
         if (isChatFlowAvailableToStream()) body.socketIOClientId = socketIOClientId()
+
+        if (props.filterRegex) {
+            const url = window.location.href
+            if (!Array.isArray(props.filterRegex)) {
+                const filterMatch = url.match(props.filterRegex)
+                if (filterMatch) {
+                    body.metadataFilter = JSON.stringify({
+                        'source': filterMatch[1]
+                    })
+                }
+            } else {
+                for (const regex of props.filterRegex) {
+                    const filterMatch = url.match(regex)
+                    if (filterMatch) {
+                        body.metadataFilter = JSON.stringify({
+                            'source': filterMatch[1]
+                        })
+                        break
+                    }
+                }
+            }
+        }
 
         const { data, error } = await sendMessageQuery({
             chatflowid: props.chatflowid,
