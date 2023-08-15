@@ -9,8 +9,8 @@ type Props = ButtonTheme & {
 
 const defaultButtonColor = '#3B81F6'
 const defaultIconColor = 'white'
-const defaultBottom = '20'
-const defaultRight = '20'
+const defaultBottom = '0'
+const defaultRight = '25'
 
 export const BubbleButton = (props: Props) => {
     return (
@@ -19,13 +19,13 @@ export const BubbleButton = (props: Props) => {
             onClick={() => props.toggleBot()}
             class={
                 `fixed shadow-md rounded-full hover:scale-110 active:scale-95 transition-transform duration-200 flex justify-center items-center animate-fade-in` +
-                (props.size === 'large' ? ' w-16 h-16' : ' w-12 h-12')
+                (props.size === 'large' ? ' w-[60px] h-[60px]' : ' w-12 h-12')
             }
             style={{
                 'background-color': props.backgroundColor ?? defaultButtonColor,
                 'z-index': 42424242,
                 'right': props.right ? `${props.right.toString()}px` : `${defaultRight}px`,
-                'bottom': props.bottom ? `${props.bottom.toString()}px` : `${defaultBottom}px`,
+                bottom: props.bottom ? `calc(50% + ${props.bottom.toString()}px)` : `calc(50% + ${defaultBottom}px)`,
             }}
         >
             <Show when={isNotDefined(props.customIconSrc)} keyed>
@@ -56,8 +56,8 @@ export const BubbleButton = (props: Props) => {
                 style={{ fill: props.iconColor ?? 'white' }}
                 class={
                     `absolute duration-200 transition ` +
-                    (props.isBotOpened ? 'scale-100 rotate-0 opacity-100' : 'scale-0 -rotate-180 opacity-0') +
-                    (props.size === 'large' ? ' w-9' : ' w-7')
+                    (props.isBotOpened ? 'scale-100 rotate-90 opacity-100' : 'scale-0 -rotate-270 opacity-0') +
+                    (props.size === 'large' ? ' w-12' : ' w-10')
                 }
             >
                 <path
